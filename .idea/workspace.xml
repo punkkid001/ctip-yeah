@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47e94f42-2e0b-45d4-9049-b7446b15379d" name="Default" comment="" />
+    <list default="true" id="47e94f42-2e0b-45d4-9049-b7446b15379d" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/unit_test/src/JUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/unit_test/src/JUnitTest.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -536,7 +538,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1523455121070</updated>
-      <workItem from="1523455125071" duration="2261000" />
+      <workItem from="1523455125071" duration="3008000" />
     </task>
     <servers />
   </component>
@@ -546,10 +548,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2261000" />
+    <option name="totallyTimeSpent" value="3008000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1273" y="0" width="1294" height="1407" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" />
       <window_info anchor="bottom" id="TODO" order="6" />

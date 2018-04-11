@@ -24,6 +24,6 @@ class JUnitTest
     @Test
     void junit_int()
     {
-        assertNotNull(this.unit.junit_int(1));
+        assertNotNull(this.unit.junit_int(3));
     }
 }
