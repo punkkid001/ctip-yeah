@@ -1,10 +1,22 @@
 group 'test'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
+apply plugin: 'org.sonarqube'
 
 checkstyle {
     configFile = new File(rootDir, 'config/checkstyle/checktyle.xml')
@@ -50,6 +62,15 @@ tasks.withType(FindBugs) {
     reports {
         xml.enabled = false
         html.enabled = true
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "ctip-yeah"
+        property "sonar.projectName", "ctip-yeah"
+        property "sonar.sources", "unit_test/src/"
+        property "sonar.sourceEncoding", "UTF-8"
     }
 }
 
