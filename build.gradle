@@ -2,6 +2,56 @@ group 'test'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
+
+checkstyle {
+    configFile = new File(rootDir, 'config/checkstyle/checktyle.xml')
+    ignoreFailures = true
+    sourceSets = [sourceSets.main]
+    toolVersion = "8.8"
+}
+
+checkstyleMain {
+    reports {
+        xml.destination = new File(rootDir, 'checkstyle-report.xml')
+    }
+}
+
+pmd {
+    ignoreFailures = true
+    sourceSets = [sourceSets.main]
+    ruleSets = ['java-basic', 'java-strings', 'java-braces']
+}
+
+pmdMain {
+    reports {
+        xml.destination = new File(rootDir, 'pmd-report.xml')
+        xml.enabled = true
+    }
+}
+
+tasks.withType(Pmd) {
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+findbugs {
+    ignoreFailures = true
+    toolVersion = "3.0.1"
+    sourceSets = [sourceSets.main]
+    effort = "max"
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
 
 sourceCompatibility = 1.8
 
