@@ -8,69 +8,48 @@ buildscript {
         }
     }
     dependencies {
-        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
+        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.1"
     }
 }
 
+apply plugin: "com.github.spotbugs"
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
-apply plugin: 'org.sonarqube'
 
 checkstyle {
-    configFile = new File(rootDir, 'config/checkstyle/checktyle.xml')
-    ignoreFailures = true
-    sourceSets = [sourceSets.main]
+    configFile = file('config/checkstyle/checktyle.xml')
     toolVersion = "8.8"
 }
 
-checkstyleMain {
+tasks.withType(Checkstyle) {
     reports {
-        xml.destination = new File(rootDir, 'checkstyle-report.xml')
-    }
-}
-
-pmd {
-    ignoreFailures = true
-    sourceSets = [sourceSets.main]
-    ruleSets = ['java-basic', 'java-strings', 'java-braces']
-}
-
-pmdMain {
-    reports {
-        xml.destination = new File(rootDir, 'pmd-report.xml')
-        xml.enabled = true
+        xml.destination = file('${buildDir}/checkstyle-report.xml')
     }
 }
 
 tasks.withType(Pmd) {
     reports {
-        xml.enabled false
-        html.enabled true
-    }
-}
-
-findbugs {
-    ignoreFailures = true
-    toolVersion = "3.0.1"
-    sourceSets = [sourceSets.main]
-    effort = "max"
-}
-
-tasks.withType(FindBugs) {
-    reports {
+        xml.destination = file('${buildDir}/pmd-report.xml')
         xml.enabled = false
         html.enabled = true
     }
 }
 
-sonarqube {
-    properties {
-        property "sonar.projectKey", "ctip-yeah"
-        property "sonar.projectName", "ctip-yeah"
-        property "sonar.sources", "unit_test/src/"
-        property "sonar.sourceEncoding", "UTF-8"
+tasks.withType(FindBugs) {
+    reports {
+        xml.destination = file('${buildDir}/findbugs.xml')
+        xml.enabled = true
+        html.enabled = false
+    }
+}
+
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+    reports {
+        xml.destination = file('${buildDir}/spotbugs.xml')
+        xml.enabled = true
+        html.enabled = false
     }
 }
 
