@@ -1,22 +1,10 @@
 group 'test'
 version '1.0-SNAPSHOT'
 
-buildscript {
-    repositories {
-        maven {
-            url 'https://plugins.gradle.org/m2/'
-        }
-    }
-    dependencies {
-        classpath 'gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.1'
-    }
-}
-
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
-apply plugin: "com.github.spotbugs"
 
 checkstyle {
     ignoreFailures = true
@@ -69,6 +57,16 @@ pmd {
 
 findbugs {
     ignoreFailures = true
+    sourceSets {
+        main {
+            java {
+                srcDir 'unit_test/src'
+            }
+            resources {
+                srcDir 'unit_test/src'
+            }
+        }
+    }
 }
 
 checkstyleMain {
@@ -79,13 +77,6 @@ checkstyleMain {
 }
 
 pmdMain {
-    reports {
-        xml.enabled = true
-        html.enabled = false
-    }
-}
-
-spotbugsMain {
     reports {
         xml.enabled = true
         html.enabled = false
