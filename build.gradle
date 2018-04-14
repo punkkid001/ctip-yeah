@@ -67,6 +67,10 @@ pmd {
     }
 }
 
+findbugs {
+    ignoreFailures = true
+}
+
 checkstyleMain {
     reports {
         xml.enabled = true
