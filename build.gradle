@@ -12,42 +12,84 @@ buildscript {
     }
 }
 
-apply plugin: "com.github.spotbugs"
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
+apply plugin: "com.github.spotbugs"
 
 checkstyle {
-    configFile = file('config/checkstyle/checktyle.xml')
+    ignoreFailures = true
+    configFile = file('config/checkstyle/checkstyle.xml')
     toolVersion = "8.8"
-}
-
-tasks.withType(Checkstyle) {
-    reports {
-        xml.destination = file('${buildDir}/checkstyle-report.xml')
+    sourceSets {
+        main {
+            java {
+                srcDir 'unit_test/src'
+            }
+            resources {
+                srcDir 'unit_test/src'
+            }
+        }
     }
 }
 
-tasks.withType(Pmd) {
-    reports {
-        xml.destination = file('${buildDir}/pmd-report.xml')
-        xml.enabled = false
-        html.enabled = true
+pmd {
+    ignoreFailures = true
+    ruleSets = [
+            'java-basic',
+            'java-braces',
+            'java-clone',
+            'java-codesize',
+            'java-comments',
+            'java-controversial',
+            'java-coupling',
+            'java-design',
+            'java-empty',
+            'java-finalizers',
+            'java-imports',
+            'java-optimizations',
+            'java-strictexception',
+            'java-strings',
+            'java-typeresolution',
+            'java-unnecessary',
+            'java-unusedcode'
+    ]
+    sourceSets {
+        main {
+            java {
+                srcDir 'unit_test/src'
+            }
+            resources {
+                srcDir 'unit_test/src'
+            }
+        }
     }
 }
 
-tasks.withType(FindBugs) {
+checkstyleMain {
     reports {
-        xml.destination = file('${buildDir}/findbugs.xml')
         xml.enabled = true
         html.enabled = false
     }
 }
 
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
+pmdMain {
     reports {
-        xml.destination = file('${buildDir}/spotbugs.xml')
+        xml.enabled = true
+        html.enabled = false
+    }
+}
+
+spotbugsMain {
+    reports {
+        xml.enabled = true
+        html.enabled = false
+    }
+}
+
+findbugsMain {
+    reports {
         xml.enabled = true
         html.enabled = false
     }
@@ -61,4 +103,5 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'junit:junit:4.12'
 }

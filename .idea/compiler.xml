@@ -2,5 +2,9 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="error-prone" />
+    <bytecodeTargetLevel>
+      <module name="test_main" target="1.8" />
+      <module name="test_test" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
